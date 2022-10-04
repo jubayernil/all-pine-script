@@ -1,0 +1,14 @@
+//@version=4
+study(title="MA Cross", overlay=true, resolution="")
+fastMA = sma(close, 55)
+medMA= sma(close, 89)
+slowMA =  sma(close,233)
+plot(fastMA, color = color.red)
+plot(medMA, color = color.green)
+plot(slowMA,color= color.black)
+
+Cond_Cross_Dn = false
+if (fastMA[1] >= medMA[1] and fastMA[0] < medMA[0]) and (medMA[0] < slowMA[0])
+    Cond_Cross_Dn := true
+
+plot(Cond_Cross_Dn ? fastMA : na, style = plot.style_cross, linewidth = 4)
