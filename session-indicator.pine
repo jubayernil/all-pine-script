@@ -1,0 +1,8 @@
+study("Sessions", overlay=true)
+t1 = time(period, "0300-1200")
+t2 = time(period, "0800-1700")
+London = na(t1) ? na : green
+NY = na(t2) ? na : red
+
+bgcolor(London, title="London")
+bgcolor(NY, title="New York")
