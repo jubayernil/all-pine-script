@@ -1,0 +1,8 @@
+//@version=5
+indicator('Nilmiya Heikin Ashi', overlay=false, shorttitle='Nilmiya Heikin Ashi')
+ha_open = request.security(ticker.heikinashi(syminfo.tickerid), timeframe.period, open)
+ha_high = request.security(ticker.heikinashi(syminfo.tickerid), timeframe.period, high)
+ha_low = request.security(ticker.heikinashi(syminfo.tickerid), timeframe.period, low)
+ha_close = request.security(ticker.heikinashi(syminfo.tickerid), timeframe.period, close)
+plotcandle(ha_open < ha_close ? ha_open : na, ha_high, ha_low, ha_close, title='Green Candles', color=#53b987, wickcolor=#53b987, bordercolor=#53b987)
+plotcandle(ha_open >= ha_close ? ha_open : na, ha_high, ha_low, ha_close, title='Red Candles', color=#eb4d5c, wickcolor=#eb4d5c, bordercolor=#eb4d5c)
