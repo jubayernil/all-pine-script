@@ -1,0 +1,25 @@
+//@version=5
+strategy("Strategy Advanced SuperTrend by Nilmiya", shorttitle="Strategy-ASS", overlay=true, commission_value=0.0002, initial_capital=100000, currency=currency.USD, default_qty_type=strategy.percent_of_equity, default_qty_value=100)
+
+// Input parameters for the strategy
+atrLength = input(14, title="ATR Length")
+multiplier = input(3.0, title="SuperTrend Multiplier")
+emaLength = input(10, title="EMA Length")
+
+// Calculate the SuperTrend
+[supertrendLine, supertrendDirection] = ta.supertrend(multiplier, atrLength)
+
+// Calculate the moving average for trend filtering
+ema = ta.ema(close, emaLength)
+
+// Define entry conditions
+enterLong = ta.crossover(close, supertrendLine) and close > ema
+enterShort = ta.crossunder(close, supertrendLine) and close < ema
+
+// Strategy execution
+strategy.entry("Long", strategy.long, when=enterLong)
+strategy.entry("Short", strategy.short, when=enterShort)
+
+// Plot the SuperTrend and EMA on the chart
+plot(supertrendLine, title="SuperTrend", color=color.red, linewidth=2, style=plot.style_stepline)
+plot(ema, title="EMA", color=color.blue, linewidth=1)
